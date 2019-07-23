@@ -20,11 +20,13 @@ public class Model implements IModel {
     public List<String> getListFromDatabase() {
 
         List<String> list = new ArrayList<>();
-        String sqlQueryText = "SELECT adam, til FROM makal";
+        String sqlQueryText = "SELECT * FROM AQI_TABLE";
         Cursor cursor = this.database.rawQuery(sqlQueryText, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             list.add(cursor.getString(0));
+            list.add(cursor.getString(1));
+            list.add(cursor.getString(2));
             cursor.moveToNext();
         }
         cursor.close();
