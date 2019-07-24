@@ -1,7 +1,9 @@
 package com.example.bionimeproject.Model;
 
-import java.util.List;
+import com.example.bionimeproject.Adapter.AqiItem;
+
+import java.util.ArrayList;
 
 public interface IModel {
-    List<String> getListFromDatabase();
+    ArrayList<AqiItem> getListFromDatabase();
 }
