@@ -1,6 +1,5 @@
 package com.example.bionimeproject;
 
-import android.nfc.Tag;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,19 +7,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.bionimeproject.Adapter.AqiItem;
+import com.example.bionimeproject.Entities.AqiItem;
 import com.example.bionimeproject.Adapter.HomeAdapter;
 import com.example.bionimeproject.Presenter.IPresenter;
 import com.example.bionimeproject.Presenter.MainActivityPresenter;
 import com.example.bionimeproject.View.IView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
-
 
 
 public class MainActivity extends AppCompatActivity implements IView {
@@ -60,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements IView {
         setSupportActionBar(toolbar);
 
         ActionBar actionbar = getSupportActionBar();
-        actionbar.setTitle("這是 Toolbar 標題");
+        actionbar.setTitle("空氣檢測");
     }
 
     @Override
