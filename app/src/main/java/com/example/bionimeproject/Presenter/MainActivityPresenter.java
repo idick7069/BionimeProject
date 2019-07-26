@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class MainActivityPresenter implements IPresenter, OnStringListener {
 
-    private IModel iModel;
+    private AqiModel iModel;
     private StringModelImpl stringModel;
     private IView iView;
     private static final String TAG = "MainActivityPresenter";
@@ -56,10 +56,21 @@ public class MainActivityPresenter implements IPresenter, OnStringListener {
         stringModel.load("http://opendata.epa.gov.tw/api/v1/AQI?%24skip=0&%24top=1000&%24format=json",this);
     }
 
+    @Override
+    public void loadDataFromApi(){
+        stringModel.load("http://opendata.epa.gov.tw/api/v1/AQI?%24skip=0&%24top=1000&%24format=json",this);
+    }
 
     @Override
     public void onSuccess(String result) {
         Log.d(TAG,result);
+        Gson gson = new Gson();
+        ArrayList<AqiItem> aqiModelList = gson.fromJson(result, new TypeToken<ArrayList<AqiItem>>() {
+        }.getType());
+        Log.d(TAG,aqiModelList.size()+"");
+        for(int i = 0;i<aqiModelList.size();i++){
+            iModel.insertToDatabase(aqiModelList.get(i));
+        }
     }
 
     @Override
