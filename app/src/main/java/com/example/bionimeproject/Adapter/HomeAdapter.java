@@ -8,8 +8,10 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.bionimeproject.Entities.AqiItem;
 import com.example.bionimeproject.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class HomeAdapter extends BaseQuickAdapter<AqiItem, BaseViewHolder> implements ItemTouchHelperAdapter{
 
@@ -42,12 +44,16 @@ public class HomeAdapter extends BaseQuickAdapter<AqiItem, BaseViewHolder> imple
     @Override
     public void onItemDissmiss(int position) {
         //移除數據
-        mData.remove(position);
-        notifyItemRemoved(position);
+
         if(itemClickListener!=null)
         {
-            itemClickListener.removeItemFromDatabase(position);
+            Log.d("選取",mData.get(position).getSiteId());
+            itemClickListener.removeItemFromDatabase(mData.get(position));
         }
+        mData.remove(position);
+        notifyItemRemoved(position);
+
+
 
     }
 

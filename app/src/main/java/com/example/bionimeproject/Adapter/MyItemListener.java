@@ -6,5 +6,5 @@ import com.example.bionimeproject.Entities.AqiItem;
 
 // 自定義接口
 public interface MyItemListener {
-    void removeItemFromDatabase(int position);
+    void removeItemFromDatabase(AqiItem item);
 }

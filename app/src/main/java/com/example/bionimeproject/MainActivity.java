@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity implements IView {
         mRecyclerView.setAdapter(homeAdapter);
         homeAdapter.setItemClickListener(new MyItemListener() {
             @Override
-            public void removeItemFromDatabase(int position) {
-                iPresenter.deleteData(position);
+            public void removeItemFromDatabase(AqiItem item) {
+                iPresenter.deleteData(item);
             }
         });
 

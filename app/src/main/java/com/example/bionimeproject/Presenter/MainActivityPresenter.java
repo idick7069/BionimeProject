@@ -47,12 +47,12 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
     }
 
     @Override
-    public void deleteData(int position) {
-        Log.d(TAG,"嘗試刪除編號:"+position);
-        if(iModel.delete(position)){
-            Log.d(TAG,"成功刪除編號:"+position);
+    public void deleteData(AqiItem item) {
+        Log.d(TAG,"嘗試刪除編號:"+Integer.parseInt(item.getSiteId()));
+        if(iModel.delete(Integer.parseInt(item.getSiteId()))){
+            Log.d(TAG,"成功刪除編號:"+Integer.parseInt(item.getSiteId()));
         }else {
-            Log.d(TAG,"失敗刪除編號:"+position);
+            Log.d(TAG,"失敗刪除編號:"+Integer.parseInt(item.getSiteId()));
         }
     }
 
