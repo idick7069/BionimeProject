@@ -10,6 +10,9 @@ import com.example.bionimeproject.View.IView;
 
 import java.util.ArrayList;
 
+/**
+ * 棄用DatabaseOpenHelper方式的Model
+ * */
 public class Model {
     private SQLiteDatabase database;
 

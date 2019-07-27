@@ -59,7 +59,8 @@ public class AqiModel implements IModel{
     // 使用上面宣告的變數建立表格的SQL指令
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
-                    KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                    KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    SITEID_COLUMN + " INTEGER PRIMARY KEY, " +
                     SITENAME_COLUMN + " TEXT , " +
                     COUNTRY_COLUMN + " TEXT, " +
                     AQI_COLUMN + " TEXT, " +
@@ -82,8 +83,9 @@ public class AqiModel implements IModel{
                     PM10_ANG_COLUMN + " TEXT, " +
                     SO2_AVG_COLUMN + " TEXT, " +
                     LONGITUDE_COLUMN + " TEXT, " +
-                    LATITUDE_COLUMN + " TEXT, " +
-                    SITEID_COLUMN + " TEXT )";
+//                    LATITUDE_COLUMN + " TEXT, " +
+                    LATITUDE_COLUMN + " TEXT )";
+//                    SITEID_COLUMN + " INTEGER PRIMARY KEY )";
 
 
 
@@ -119,12 +121,18 @@ public class AqiModel implements IModel{
     }
     private AqiItem getRecord(Cursor cursor){
         AqiItem aqiItem = new AqiItem();
-        aqiItem.setSiteName(cursor.getString(0));
-        aqiItem.setCountry(cursor.getString(1));
-        aqiItem.setAQI(cursor.getString(2));
+        aqiItem.setSiteId(cursor.getInt(0)+"");
+        aqiItem.setSiteName(cursor.getString(1));
+        aqiItem.setCountry(cursor.getString(2));
+        aqiItem.setAQI(cursor.getString(3));
+        aqiItem.setPollutant(cursor.getString(4));
+        aqiItem.setStatus(cursor.getString(5));
+//        aqiItem.setSiteId(cursor.getInt(23)+"");
 
         return aqiItem;
     }
+
+
 
     // 新增參數指定的物件
     @Override
@@ -159,10 +167,6 @@ public class AqiModel implements IModel{
         cv.put(LATITUDE_COLUMN, item.getLatitude() );
         cv.put(SITEID_COLUMN,item.getSiteId());
 
-
-
-
-
         // 新增一筆資料並取得編號
         // 第一個參數是表格名稱
         // 第二個參數是沒有指定欄位值的預設值
@@ -172,4 +176,87 @@ public class AqiModel implements IModel{
         // 回傳結果
         return id;
     }
+
+    // 修改參數指定的物件
+    public boolean update(AqiItem item) {
+        // 建立準備修改資料的ContentValues物件
+        ContentValues cv = new ContentValues();
+
+        // 加入ContentValues物件包裝的修改資料
+        // 第一個參數是欄位名稱， 第二個參數是欄位的資料
+        cv.put(SITENAME_COLUMN, item.getSiteName());
+        cv.put(COUNTRY_COLUMN, item.getCountry());
+        cv.put(AQI_COLUMN, item.getAQI());
+        cv.put(POLLUTANT_COLUMN, item.getPollutant());
+        cv.put(STATUS_COLUMN, item.getStatus() );
+        cv.put(SO2_COLUMN, item.getSO2() );
+        cv.put(CO_COLUMN, item.getCO() );
+        cv.put(CO_8HR_COLUMN, item.getCO_8hr() );
+        cv.put(O3_COLUMN, item.getO3() );
+        cv.put(O3_8HR_COLUMN, item.getO3_8h() );
+        cv.put(PM10_COLUMN, item.getPM10() );
+        cv.put(PM25_COLUMN, item.getPM25());
+        cv.put(NO2_COLUMN, item.getNO2());
+        cv.put(NOX_COLUMN, item.getNOx() );
+        cv.put(NO_COLUMN, item.getNO() );
+        cv.put(WINDSPEED_COLUMN, item.getWindSpeed() );
+        cv.put(WINDDIREC_COLUMN, item.getWindDirec() );
+        cv.put(PUBLISHTIME_COLUMN, item.getPublishTime() );
+        cv.put(PM25_AVG_COLUMN, item.getPM25_AVG() );
+        cv.put(PM10_ANG_COLUMN, item.getPM10() );
+        cv.put(SO2_AVG_COLUMN, item.getSO2() );
+        cv.put(LONGITUDE_COLUMN, item.getLongitude() );
+        cv.put(LATITUDE_COLUMN, item.getLatitude() );
+//        cv.put(SITEID_COLUMN,item.getSiteId());
+
+
+        // 設定修改資料的條件為編號
+        // 格式為「欄位名稱＝資料」
+        String where = SITEID_COLUMN + "=" + item.getSiteId();
+
+        // 執行修改資料並回傳修改的資料數量是否成功
+        return db.update(TABLE_NAME, cv, where, null) > 0;
+    }
+
+    // 取得指定編號的資料物件
+    public AqiItem get(int id) {
+        // 準備回傳結果用的物件
+        AqiItem item = null;
+        // 使用編號為查詢條件
+        String where = SITEID_COLUMN + "=" + id;
+        // 執行查詢
+        Cursor result = db.query(
+                TABLE_NAME, null, where, null, null, null, null, null);
+        // 如果有查詢結果
+        if (result.moveToFirst()) {
+            // 讀取包裝一筆資料的物件
+            item = getRecord(result);
+        }
+
+        // 關閉Cursor物件
+        result.close();
+        // 回傳結果
+        return item;
+    }
+    public boolean ifExist(int id) {
+        // 準備回傳結果用的物件
+        String Query = "Select * from " + TABLE_NAME + " where " + SITEID_COLUMN + " = " + id;
+        Cursor cursor = db.rawQuery(Query, null);
+        if(cursor.getCount() <= 0){
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
+    }
+
+    // 刪除參數指定編號的資料
+    public boolean delete(int id){
+        // 設定條件為編號，格式為「欄位名稱=資料」
+
+        String where = SITEID_COLUMN + " = " + id;
+        // 刪除指定編號資料並回傳刪除是否成功
+        return db.delete(TABLE_NAME, where , null) > 0;
+    }
+
 }

@@ -1,8 +1,10 @@
 package com.example.bionimeproject.Entities;
 
+import com.google.gson.annotations.SerializedName;
+
 public class AqiItem {
     private String SiteName;
-    private String Country;
+    private String County;
     private String AQI;
     private String Pollutant;
     private String Status;
@@ -12,6 +14,7 @@ public class AqiItem {
     private String O3;
     private String O3_8h;
     private String PM10;
+    @SerializedName("PM2.5")
     private String PM25;
     private String NO2;
     private String NOx;
@@ -19,6 +22,7 @@ public class AqiItem {
     private String WindSpeed;
     private String WindDirec;
     private String PublishTime;
+    @SerializedName("PM2.5_AVG")
     private String PM25_AVG;
     private String PM10_AVG;
     private String SO2_AVG;
@@ -30,9 +34,9 @@ public class AqiItem {
     public AqiItem() {
     }
 
-    public AqiItem(String SiteName, String Country, String AQI, String Pollutant, String Status, String SO2, String CO, String CO_8hr, String O3, String O3_8h, String PM10, String PM25, String NO2, String NOx, String NO, String WindSpeed, String WindDirec, String PublishTime, String PM25_AVG, String PM10_AVG, String SO2_AVG, String Longitude, String Latitude, String SiteId) {
+    public AqiItem(String SiteName, String County, String AQI, String Pollutant, String Status, String SO2, String CO, String CO_8hr, String O3, String O3_8h, String PM10, String PM25, String NO2, String NOx, String NO, String WindSpeed, String WindDirec, String PublishTime, String PM25_AVG, String PM10_AVG, String SO2_AVG, String Longitude, String Latitude, String SiteId) {
         this.SiteName = SiteName;
-        this.Country = Country;
+        this.County = County;
         this.AQI = AQI;
         this.Pollutant = Pollutant;
         this.Status = Status;
@@ -64,7 +68,7 @@ public class AqiItem {
     }
 
     public void setCountry(String country) {
-        Country = country;
+        County = country;
     }
 
     public void setSiteName(String siteName) {
@@ -76,7 +80,7 @@ public class AqiItem {
     }
 
     public String getCountry() {
-        return Country;
+        return County;
     }
 
     public String getSiteName() {
