@@ -1,6 +1,7 @@
 package com.example.bionimeproject.Presenter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 
 import com.android.volley.VolleyError;
@@ -8,20 +9,30 @@ import com.example.bionimeproject.Adapter.ItemTouchHelperAdapter;
 import com.example.bionimeproject.Adapter.MyItemListener;
 import com.example.bionimeproject.Entities.AqiItem;
 import com.example.bionimeproject.Model.AqiModel;
+import com.example.bionimeproject.Model.DairyQuoteModel;
+import com.example.bionimeproject.Network.OnDairyListener;
 import com.example.bionimeproject.Network.OnStringListener;
 import com.example.bionimeproject.Network.StringModelImpl;
 import com.example.bionimeproject.View.IView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
-public class MainActivityPresenter implements IPresenter, OnStringListener, ItemTouchHelperAdapter{
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivityPresenter implements IPresenter, OnStringListener, ItemTouchHelperAdapter, OnDairyListener {
 
     private AqiModel iModel;
     private StringModelImpl stringModel;
+    private DairyQuoteModel dairyQuoteModel;
     private IView iView;
     private static final String TAG = "MainActivityPresenter";
+    private Handler mHandler = new Handler();
 
 
 
@@ -29,6 +40,7 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
         this.iView = iView;
         iModel = new AqiModel(iView);
         stringModel = new StringModelImpl((Context) iView);
+        dairyQuoteModel = new DairyQuoteModel((Context) iView);
 
     }
 
@@ -55,6 +67,27 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
             Log.d(TAG,"失敗刪除編號:"+Integer.parseInt(item.getSiteId()));
         }
     }
+
+    @Override
+    public void crawlerData() {
+        dairyQuoteModel.getData("https://tw.appledaily.com/index/dailyquote/",this);
+//        try {
+//            //从一个URL加载一个Document对象。
+//            Document doc = Jsoup.connect("https://tw.appledaily.com/index/dailyquote/").get();
+//            //选择“美食天下”所在节点
+//            Elements elements = doc.select("div.abdominis");
+//            Log.i("abdominisTag",elements.select("p").text());
+//            //打印 <a>标签里面的title
+//            for(Element e : elements) {
+//                Log.i("abdominisTag",e.text());
+//            }
+//
+//        }catch(Exception e) {
+//            Log.i("mytag", e.toString());
+//        }
+    }
+
+
 
 
     @Override
@@ -86,15 +119,13 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
     }
 
 
+
+
     @Override
     public void onError(VolleyError error) {
         Log.e(TAG, error.toString());
     }
 
-    @Override
-    public void onItemMove(int fromPosition, int toPosition) {
-
-    }
 
     @Override
     public void onItemDissmiss(int position) {
@@ -104,5 +135,13 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
     }
 
 
+    @Override
+    public void onLoadSuccess(List<String> result) {
+        iView.setDairyToHeader(result);
+    }
 
+    @Override
+    public void onLoadError(Exception error) {
+
+    }
 }

@@ -33,8 +33,10 @@ dependencies {
     //RecycleView 套件
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    //web傳遞
+    //Volley套件 處理http請求傳遞
     implementation 'com.android.volley:volley:1.1.1'
-    //Google處理json套件
+    //Gson套件  處理json套件
     implementation 'com.google.code.gson:gson:2.8.5'
+    //Jsoup套件 處理爬蟲資料
+    implementation 'org.jsoup:jsoup:1.9.2'
 }

@@ -6,4 +6,5 @@ public interface IPresenter {
     void setDataToListview();
     void loadDataFromApi();
     void deleteData(AqiItem item);
+    void crawlerData();
 }
