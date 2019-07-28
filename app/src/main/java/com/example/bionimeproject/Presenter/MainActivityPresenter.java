@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.android.volley.VolleyError;
 import com.example.bionimeproject.Adapter.ItemTouchHelperAdapter;
-import com.example.bionimeproject.Adapter.MyItemListener;
 import com.example.bionimeproject.Entities.AqiItem;
 import com.example.bionimeproject.Model.AqiModel;
 import com.example.bionimeproject.Model.DairyQuoteModel;
@@ -16,11 +15,6 @@ import com.example.bionimeproject.Network.StringModelImpl;
 import com.example.bionimeproject.View.IView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;

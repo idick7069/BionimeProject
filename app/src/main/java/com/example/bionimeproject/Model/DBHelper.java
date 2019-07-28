@@ -12,6 +12,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
+
+/**
+ * SQLite處理Helper
+ * */
 public class DBHelper extends SQLiteOpenHelper {
     //宣告
     private static final String TAG = DBHelper.class.getSimpleName();

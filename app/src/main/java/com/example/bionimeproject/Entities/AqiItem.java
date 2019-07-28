@@ -2,6 +2,9 @@ package com.example.bionimeproject.Entities;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * 空汙指標
+ * */
 public class AqiItem {
     private String SiteName;
     private String County;

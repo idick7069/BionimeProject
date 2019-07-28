@@ -59,7 +59,6 @@ public class AqiModel implements IModel{
     // 使用上面宣告的變數建立表格的SQL指令
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
-//                    KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     SITEID_COLUMN + " INTEGER PRIMARY KEY, " +
                     SITENAME_COLUMN + " TEXT , " +
                     COUNTRY_COLUMN + " TEXT, " +
@@ -83,9 +82,7 @@ public class AqiModel implements IModel{
                     PM10_ANG_COLUMN + " TEXT, " +
                     SO2_AVG_COLUMN + " TEXT, " +
                     LONGITUDE_COLUMN + " TEXT, " +
-//                    LATITUDE_COLUMN + " TEXT, " +
                     LATITUDE_COLUMN + " TEXT )";
-//                    SITEID_COLUMN + " INTEGER PRIMARY KEY )";
 
 
 
@@ -119,6 +116,8 @@ public class AqiModel implements IModel{
         cursor.close();
         return result;
     }
+
+    //獲取資料回傳物件
     private AqiItem getRecord(Cursor cursor){
         AqiItem aqiItem = new AqiItem();
         aqiItem.setSiteId(cursor.getInt(0)+"");
@@ -238,6 +237,8 @@ public class AqiModel implements IModel{
         // 回傳結果
         return item;
     }
+
+    //確認是否存在於資料庫
     public boolean ifExist(int id) {
         // 準備回傳結果用的物件
         String Query = "Select * from " + TABLE_NAME + " where " + SITEID_COLUMN + " = " + id;

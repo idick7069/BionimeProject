@@ -8,12 +8,15 @@ import com.example.bionimeproject.Network.OnStringListener;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 每日一句Model
+ * 不該在Model 進行獲取網路資料動作(待處理)
+ * */
 public class DairyQuoteModel implements IDailyQuoteModel {
 
 
@@ -27,7 +30,7 @@ public class DairyQuoteModel implements IDailyQuoteModel {
 
     @Override
     public void getData(String url, final OnDairyListener listener) {
-        //模拟子线程耗时操作
+        //以子線程方式爬蟲
         new Thread()
         {
             @Override
@@ -55,11 +58,11 @@ public class DairyQuoteModel implements IDailyQuoteModel {
                     String engString = elements.select("span").text();
                     //去除英文部分
                     String chiString =  elements.select("p").first().text().replace(engString,"");
-
                     String timeString = elements.select("time").text();
+                    //去除時間部分
                     String anchorString = elements.select("H1").text().replace(timeString,"");
 
-
+                    //包裝成List以listener回傳
                     List<String> sentences = new ArrayList<>();
                     sentences.add(chiString);
                     sentences.add(engString);
