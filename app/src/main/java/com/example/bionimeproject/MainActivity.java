@@ -50,11 +50,6 @@ public class MainActivity extends AppCompatActivity implements IView {
         iPresenter.loadDataFromApi();
 
 
-
-        iPresenter.setDataToListview();
-
-        initAdapter();
-
         iPresenter.crawlerData();
     }
 
@@ -111,11 +106,11 @@ public class MainActivity extends AppCompatActivity implements IView {
         });
     }
 
+
     @Override
     public void setDataToListview( ArrayList<AqiItem> dataList) {
-        Log.d(TAG, dataList.toString());
         dataArrayList = dataList;
-
+        initAdapter();
     }
 
     @Override

@@ -40,13 +40,6 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
 
 
     @Override
-    public void setDataToListview() {
-        ArrayList<AqiItem> list = iModel.getListFromDatabase();
-        Log.d(TAG, list.size() + "個");
-        iView.setDataToListview(list);
-    }
-
-    @Override
     public void loadDataFromApi() {
         stringModel.load("http://opendata.epa.gov.tw/api/v1/AQI?%24skip=0&%24top=1000&%24format=json", this);
     }
@@ -89,7 +82,11 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
                     }
                 }
             }
-            iView.setDataToListview(aqiModelList);
+            Log.d(TAG, "有"+aqiModelList.size() + "個");
+
+            ArrayList<AqiItem> list = iModel.getListFromDatabase();
+            Log.d(TAG, list.size() + "個");
+            iView.setDataToListview(list);
         }catch (Exception e)
         {
             Log.e(TAG,e.toString());
