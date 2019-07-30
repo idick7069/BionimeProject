@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.view.View;
 
 import com.example.bionimeproject.Entities.AqiItem;
 import com.example.bionimeproject.View.IView;
@@ -92,8 +93,8 @@ public class AqiModel implements IModel{
     private SQLiteDatabase db;
 
     // 建構子，一般的應用都不需要修改
-    public AqiModel(IView iView) {
-        db = DBHelper.getDatabase((Context) iView);
+    public AqiModel(Context context) {
+        db = DBHelper.getDatabase(context);
     }
 
 
@@ -126,7 +127,24 @@ public class AqiModel implements IModel{
         aqiItem.setAQI(cursor.getString(3));
         aqiItem.setPollutant(cursor.getString(4));
         aqiItem.setStatus(cursor.getString(5));
-//        aqiItem.setSiteId(cursor.getInt(23)+"");
+        aqiItem.setSO2(cursor.getString(6));
+        aqiItem.setCO(cursor.getString(7));
+        aqiItem.setCO_8hr(cursor.getString(8));
+        aqiItem.setO3(cursor.getString(9));
+        aqiItem.setO3_8h(cursor.getString(10));
+        aqiItem.setPM10(cursor.getString(11));
+        aqiItem.setPM25(cursor.getString(12));
+        aqiItem.setNO2(cursor.getString(13));
+        aqiItem.setNOx(cursor.getString(14));
+        aqiItem.setNO(cursor.getString(15));
+        aqiItem.setWindSpeed(cursor.getString(16));
+        aqiItem.setWindDirec(cursor.getString(17));
+        aqiItem.setPublishTime(cursor.getString(18));
+        aqiItem.setPM25_AVG(cursor.getString(19));
+        aqiItem.setPM10_AVG(cursor.getString(20));
+        aqiItem.setSO2_AVG(cursor.getString(21));
+        aqiItem.setLongitude(cursor.getString(22));
+        aqiItem.setLatitude(cursor.getString(23));
 
         return aqiItem;
     }

@@ -34,10 +34,11 @@ public class HomeAdapter extends BaseQuickAdapter<AqiItem, BaseViewHolder> imple
 
         //AQI數值
         if (!item.getAQI().equals("")) {
-            helper.setText(R.id.item_Aqi, item.getAQI());
+            helper.setText(R.id.item_Status, item.getStatus());
         } else {
-            helper.setText(R.id.item_Aqi, "無資料");
+            helper.setText(R.id.item_Status, "無資料");
         }
+
     }
 
 

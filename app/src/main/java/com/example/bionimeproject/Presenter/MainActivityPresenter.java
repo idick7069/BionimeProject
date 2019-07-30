@@ -30,9 +30,9 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
 
 
 
-    public MainActivityPresenter(IView iView) {
+    public MainActivityPresenter(IView iView,AqiModel aqiModel) {
         this.iView = iView;
-        iModel = new AqiModel(iView);
+        this.iModel = aqiModel;
         stringModel = new StringModelImpl((Context) iView);
         dairyQuoteModel = new DairyQuoteModel((Context) iView);
 
@@ -44,7 +44,6 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
         ArrayList<AqiItem> list = iModel.getListFromDatabase();
         Log.d(TAG, list.size() + "個");
         iView.setDataToListview(list);
-//        stringModel.load("http://opendata.epa.gov.tw/api/v1/AQI?%24skip=0&%24top=1000&%24format=json",this);
     }
 
     @Override
@@ -65,20 +64,6 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
     @Override
     public void crawlerData() {
         dairyQuoteModel.getData("https://tw.appledaily.com/index/dailyquote/",this);
-//        try {
-//            //从一个URL加载一个Document对象。
-//            Document doc = Jsoup.connect("https://tw.appledaily.com/index/dailyquote/").get();
-//            //选择“美食天下”所在节点
-//            Elements elements = doc.select("div.abdominis");
-//            Log.i("abdominisTag",elements.select("p").text());
-//            //打印 <a>标签里面的title
-//            for(Element e : elements) {
-//                Log.i("abdominisTag",e.text());
-//            }
-//
-//        }catch(Exception e) {
-//            Log.i("mytag", e.toString());
-//        }
     }
 
 
@@ -104,6 +89,7 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
                     }
                 }
             }
+            iView.setDataToListview(aqiModelList);
         }catch (Exception e)
         {
             Log.e(TAG,e.toString());
@@ -136,6 +122,6 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
 
     @Override
     public void onLoadError(Exception error) {
-
+        Log.e(TAG,error.toString());
     }
 }

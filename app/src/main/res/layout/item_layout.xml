@@ -65,7 +65,7 @@
             android:textSize="10sp" />
 
         <TextView
-            android:id="@+id/item_Aqi"
+            android:id="@+id/item_Status"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
