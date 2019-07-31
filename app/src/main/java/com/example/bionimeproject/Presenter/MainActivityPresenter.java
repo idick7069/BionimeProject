@@ -67,7 +67,7 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
         Log.d(TAG, result);
         Gson gson = new Gson();
 
-
+        try {
             ArrayList<AqiItem> aqiModelList = gson.fromJson(result, new TypeToken<ArrayList<AqiItem>>() {
             }.getType());
             Log.d(TAG, "load" + aqiModelList.size() + "");
@@ -85,7 +85,10 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
 
             ArrayList<AqiItem> list = iModel.getListFromDatabase();
             iView.setDataToListview(list);
-
+        }catch (Exception e)
+        {
+            Log.e(TAG,e.toString());
+        }
 
 
     }
