@@ -41,7 +41,7 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
 
     @Override
     public void loadDataFromApi() {
-        stringModel.load("http://opendata.epa.gov.tw/api/v1/AQI?%24skip=0&%24top=1000&%24format=json", this);
+        stringModel.load("https://opendata.epa.gov.tw/api/v1/AQI?format=json", this);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
         Log.d(TAG, result);
         Gson gson = new Gson();
 
-        try {
+
             ArrayList<AqiItem> aqiModelList = gson.fromJson(result, new TypeToken<ArrayList<AqiItem>>() {
             }.getType());
             Log.d(TAG, "load" + aqiModelList.size() + "");
@@ -82,15 +82,10 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
                     }
                 }
             }
-            Log.d(TAG, "有"+aqiModelList.size() + "個");
 
             ArrayList<AqiItem> list = iModel.getListFromDatabase();
-            Log.d(TAG, list.size() + "個");
             iView.setDataToListview(list);
-        }catch (Exception e)
-        {
-            Log.e(TAG,e.toString());
-        }
+
 
 
     }
@@ -100,7 +95,7 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
 
     @Override
     public void onError(VolleyError error) {
-        Log.e(TAG, error.toString());
+        Log.e(TAG+"2", error.toString());
     }
 
 
@@ -119,6 +114,6 @@ public class MainActivityPresenter implements IPresenter, OnStringListener, Item
 
     @Override
     public void onLoadError(Exception error) {
-        Log.e(TAG,error.toString());
+        Log.e(TAG+"3",error.toString());
     }
 }

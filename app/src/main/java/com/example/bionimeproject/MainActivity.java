@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements IView {
     private ArrayList<AqiItem> dataArrayList;
     private TextView chiText, engText, anchorText, timeText;
     private View headerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements IView {
         initToolbar();
         initView();
 
-        iPresenter = new MainActivityPresenter(this,new AqiModel(this));
+        iPresenter = new MainActivityPresenter(this, new AqiModel(this));
         iPresenter.loadDataFromApi();
 
 
@@ -94,12 +95,12 @@ public class MainActivity extends AppCompatActivity implements IView {
         homeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Log.d(TAG, "onItemClick: "+ dataArrayList.get(position).getSiteId());
+                Log.d(TAG, "onItemClick: " + dataArrayList.get(position).getSiteId());
                 Intent intent = new Intent();
-                intent.setClass(MainActivity.this,DetailActivity.class);
+                intent.setClass(MainActivity.this, DetailActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("data", Integer.parseInt(dataArrayList.get(position).getSiteId()));
-                bundle.putString("site",dataArrayList.get(position).getSiteName());
+                bundle.putString("site", dataArrayList.get(position).getSiteName());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements IView {
 
 
     @Override
-    public void setDataToListview( ArrayList<AqiItem> dataList) {
+    public void setDataToListview(ArrayList<AqiItem> dataList) {
         dataArrayList = dataList;
         initAdapter();
     }
@@ -133,14 +134,6 @@ public class MainActivity extends AppCompatActivity implements IView {
                 });
             }
         }).start();
-    }
-
-    // 廣播意圖定義
-    public void broadcastIntent(View view){
-        Intent intent = new Intent();
-        intent.setAction("com.example.broadcast.MY_NOTIFICATION");
-        intent.putExtra("data","Notice!");
-        sendBroadcast(intent);
     }
 
 

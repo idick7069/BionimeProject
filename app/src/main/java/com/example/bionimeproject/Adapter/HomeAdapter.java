@@ -24,7 +24,6 @@ public class HomeAdapter extends BaseQuickAdapter<AqiItem, BaseViewHolder> imple
         super(layoutResId, data);
     }
 
-
     @Override
     protected void convert(@NonNull BaseViewHolder helper, AqiItem item) {
 
@@ -47,14 +46,26 @@ public class HomeAdapter extends BaseQuickAdapter<AqiItem, BaseViewHolder> imple
      **/
     @Override
     public void onItemDissmiss(int position) {
-        //移除數據
 
-        if (itemClickListener != null) {
-            Log.d("選取", mData.get(position - 1).getSiteId());
-            itemClickListener.removeItemFromDatabase(mData.get(position - 1));
+
+        //移除數據
+        Log.d(TAG,"移除:"+position+"");
+        if (itemClickListener != null && position != 0 ) {
+
+            if(getHeaderLayoutCount()>0){
+                itemClickListener.removeItemFromDatabase(mData.get(position - 1));
+                mData.remove(position-1);
+            }
+            else{
+                itemClickListener.removeItemFromDatabase(mData.get(position));
+                mData.remove(position);
+            }
+
+            notifyItemRemoved(position);
+        }else
+        {
+            removeAllHeaderView();
         }
-        mData.remove(position - 1);
-        notifyItemRemoved(position);
 
 
     }

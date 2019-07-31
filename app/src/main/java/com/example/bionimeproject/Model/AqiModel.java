@@ -60,7 +60,8 @@ public class AqiModel implements IModel{
     // 使用上面宣告的變數建立表格的SQL指令
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
-                    SITEID_COLUMN + " INTEGER PRIMARY KEY, " +
+                    KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+//                    SITEID_COLUMN + " INTEGER , " +
                     SITENAME_COLUMN + " TEXT , " +
                     COUNTRY_COLUMN + " TEXT, " +
                     AQI_COLUMN + " TEXT, " +
@@ -83,7 +84,9 @@ public class AqiModel implements IModel{
                     PM10_ANG_COLUMN + " TEXT, " +
                     SO2_AVG_COLUMN + " TEXT, " +
                     LONGITUDE_COLUMN + " TEXT, " +
-                    LATITUDE_COLUMN + " TEXT )";
+                    LATITUDE_COLUMN + " TEXT, "+
+                    SITEID_COLUMN + " INTEGER )";
+//                    LATITUDE_COLUMN + " TEXT )";
 
 
 
@@ -108,7 +111,7 @@ public class AqiModel implements IModel{
 
         ArrayList<AqiItem> result = new ArrayList<>();
         Cursor cursor = db.query(
-                TABLE_NAME, null, null, null, null, null, null, null);
+                TABLE_NAME, null, null, null, null, null, SITEID_COLUMN, null);
 
         while (cursor.moveToNext()) {
             result.add(getRecord(cursor));
@@ -121,7 +124,6 @@ public class AqiModel implements IModel{
     //獲取資料回傳物件
     private AqiItem getRecord(Cursor cursor){
         AqiItem aqiItem = new AqiItem();
-        aqiItem.setSiteId(cursor.getInt(0)+"");
         aqiItem.setSiteName(cursor.getString(1));
         aqiItem.setCountry(cursor.getString(2));
         aqiItem.setAQI(cursor.getString(3));
@@ -145,6 +147,7 @@ public class AqiModel implements IModel{
         aqiItem.setSO2_AVG(cursor.getString(21));
         aqiItem.setLongitude(cursor.getString(22));
         aqiItem.setLatitude(cursor.getString(23));
+        aqiItem.setSiteId(cursor.getInt(24)+"");
 
         return aqiItem;
     }

@@ -20,6 +20,8 @@ public class StringModelImpl {
     }
 
     public void load(String url, final OnStringListener listener) {
+        //Add HttpsTrustManager.allowAllSSL() before you make a https request:
+        HttpsTrustManager.allowAllSSL();
         StringRequest request = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
